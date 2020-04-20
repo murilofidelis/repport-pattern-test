@@ -1,10 +1,6 @@
 logging:
   level:
     ROOT: INFO
-    org:
-      springframework:
-        cloud:
-          stream: DEBUG
 
 server:
   port: 8081
@@ -35,6 +31,6 @@ spring:
       hibernate.format_sql: true
       hibernate.temp.use_jdbc_metadata_defaults: false
     hibernate:
-      ddl-auto: 'update'
+      ddl-auto: 'none'
 
 app:

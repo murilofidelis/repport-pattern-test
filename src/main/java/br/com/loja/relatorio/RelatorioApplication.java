@@ -1,8 +1,10 @@
 package br.com.loja.relatorio;
 
+import br.com.loja.relatorio.enuns.AppContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
 import org.springframework.core.env.Environment;
 
 import java.net.InetAddress;
@@ -13,9 +15,14 @@ import java.net.UnknownHostException;
 public class RelatorioApplication {
 
     public static void main(String[] args) throws UnknownHostException {
+
         SpringApplication app = new SpringApplication(RelatorioApplication.class);
 
-        Environment env = app.run(args).getEnvironment();
+        ApplicationContext context = app.run(args);
+
+        AppContext.getInstance().setContext(context);
+
+        Environment env = context.getEnvironment();
 
         log.info("\n----------------------------------------------------------\n\t" +
                         "Serviço: '{}' iniciado! Acesso URLs:\n\t" +
