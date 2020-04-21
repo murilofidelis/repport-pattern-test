@@ -2,7 +2,7 @@ package br.com.loja.relatorio.web;
 
 import br.com.loja.relatorio.enuns.Formato;
 import br.com.loja.relatorio.enuns.TipoRelatorio;
-import br.com.loja.relatorio.service.RelatorioService;
+import br.com.loja.relatorio.service.IRelatorioService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class RelatorioResource {
 
-    private final RelatorioService service;
+    private final IRelatorioService service;
 
     @ResponseBody
     @GetMapping("/exporta")

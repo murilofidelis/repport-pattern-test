@@ -5,7 +5,7 @@ import br.com.loja.relatorio.enuns.TipoRelatorio;
 
 import javax.servlet.http.HttpServletResponse;
 
-public interface RelatorioService {
+public interface IRelatorioService {
 
     void exporta(TipoRelatorio tipo, Formato formato, HttpServletResponse response);
 

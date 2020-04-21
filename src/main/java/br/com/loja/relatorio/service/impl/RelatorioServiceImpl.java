@@ -2,14 +2,14 @@ package br.com.loja.relatorio.service.impl;
 
 import br.com.loja.relatorio.enuns.Formato;
 import br.com.loja.relatorio.enuns.TipoRelatorio;
-import br.com.loja.relatorio.impressao.Relatorio;
-import br.com.loja.relatorio.service.RelatorioService;
+import br.com.loja.relatorio.export.Relatorio;
+import br.com.loja.relatorio.service.IRelatorioService;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
 
 @Service
-public class RelatorioServiceImpl implements RelatorioService {
+public class RelatorioServiceImpl implements IRelatorioService {
 
     public void exporta(TipoRelatorio tipo, Formato formato, HttpServletResponse response) {
 

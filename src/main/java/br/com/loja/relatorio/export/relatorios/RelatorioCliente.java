@@ -1,9 +1,9 @@
-package br.com.loja.relatorio.impressao.relatorios;
+package br.com.loja.relatorio.export.relatorios;
 
 import br.com.loja.relatorio.domain.dto.ClienteDTO;
 import br.com.loja.relatorio.enuns.Formato;
 import br.com.loja.relatorio.exception.ImpressaoExeption;
-import br.com.loja.relatorio.impressao.RelatorioExport;
+import br.com.loja.relatorio.export.IRelatorioExport;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Slf4j
-public class RelatorioCliente implements RelatorioExport {
+public class RelatorioCliente implements IRelatorioExport {
 
     @Override
     @SuppressWarnings("unchecked")

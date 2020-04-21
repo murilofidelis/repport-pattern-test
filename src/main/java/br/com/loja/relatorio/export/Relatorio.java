@@ -1,9 +1,8 @@
-package br.com.loja.relatorio.impressao;
+package br.com.loja.relatorio.export;
 
 import br.com.loja.relatorio.enuns.AppContext;
 import br.com.loja.relatorio.enuns.Formato;
 import br.com.loja.relatorio.enuns.TipoRelatorio;
-import br.com.loja.relatorio.service.ImpressaoService;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletResponse;
@@ -38,14 +37,14 @@ public class Relatorio {
 
     private void montaRelatorio() {
         Object dados = this.getDadosRelatorio();
-        RelatorioExport relatorioExport = this.tipo.createInstance();
+        IRelatorioExport relatorioExport = this.tipo.createInstance();
         relatorioExport.exporta(dados, this.formato, this.response);
     }
 
     @SuppressWarnings("unchecked")
     private Object getDadosRelatorio() {
-        ImpressaoService service = AppContext.getInstance().getContext()
-                .getBean((Class<ImpressaoService>) getClassProvide());
+        IRelatorioExportData service = AppContext.getInstance().getContext()
+                .getBean((Class<IRelatorioExportData>) getClassProvide());
         return service.getDadosImpressao();
     }
 

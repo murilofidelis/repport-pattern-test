@@ -1,15 +1,15 @@
-package br.com.loja.relatorio.impressao.relatorios;
+package br.com.loja.relatorio.export.relatorios;
 
 import br.com.loja.relatorio.domain.dto.VendaDTO;
 import br.com.loja.relatorio.enuns.Formato;
-import br.com.loja.relatorio.impressao.RelatorioExport;
+import br.com.loja.relatorio.export.IRelatorioExport;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Slf4j
-public class RelatorioVenda implements RelatorioExport {
+public class RelatorioVenda implements IRelatorioExport {
 
     @Override
     @SuppressWarnings("unchecked")
