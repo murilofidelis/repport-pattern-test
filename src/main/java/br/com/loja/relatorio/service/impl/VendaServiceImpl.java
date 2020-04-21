@@ -24,7 +24,7 @@ public class VendaServiceImpl implements IVendaService {
     }
 
     @Override
-    public Object getDadosImpressao() {
+    public Object getDataExport() {
         return this.mapper.listDTO(this.getTodos());
     }
 }

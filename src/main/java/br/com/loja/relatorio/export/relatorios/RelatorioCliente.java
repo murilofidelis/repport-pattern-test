@@ -19,30 +19,33 @@ import java.util.List;
 public class RelatorioCliente implements IRelatorioExport {
 
     @Override
-    @SuppressWarnings("unchecked")
+
     public void exporta(Object dados, Formato formato, HttpServletResponse response) {
         log.info("EXPORTANDO RelatorioCliente FORMARTO: {}", formato);
         if (formato.equals(Formato.XLS)) {
-            new FormatoXLS((List<ClienteDTO>) dados, response);
+            new FormatoXLS(dados, response);
         } else if (formato.equals(Formato.PDF)) {
-            new FormatoPDF((List<ClienteDTO>) dados, response);
+            new FormatoPDF(dados, response);
         } else {
-            throw new ImpressaoExeption("Formato não disponível para tipo de raltório.");
+            throw new ImpressaoExeption("Formato não disponível para tipo de ralatório.");
         }
     }
 }
 
 @Slf4j
+@SuppressWarnings("unchecked")
 class FormatoXLS extends XLSPadrao {
 
     private List<ClienteDTO> clientes;
 
     private HttpServletResponse response;
 
-    private static final int LINHA_INICIAL = BigDecimal.ONE.intValue();
+    private static final String NOME_ARQUIVO = "clientes.xlsx";
 
-    public FormatoXLS(List<ClienteDTO> clientes, HttpServletResponse response) {
-        this.clientes = clientes;
+    private static final int LINHA_INICIAL = BigDecimal.ZERO.intValue();
+
+    public FormatoXLS(Object dados, HttpServletResponse response) {
+        this.clientes = (List<ClienteDTO>) dados;
         this.response = response;
         this.motaRelatorio();
     }
@@ -56,7 +59,7 @@ class FormatoXLS extends XLSPadrao {
             int linhaInicialDadosRelatorio = (LINHA_INICIAL + 1);
             this.montaCorpoRelatorio(sheet, linhaInicialDadosRelatorio);
             organizaTamanhoColunas(sheet, colunas.length);
-            setHeaderResponde(response, "clientes.xls");
+            setHeaderResponde(response, NOME_ARQUIVO);
             workbook.write(response.getOutputStream());
         } catch (IOException e) {
             log.error("Erro ao gerar arquivo: {}", e.getMessage());
@@ -74,14 +77,16 @@ class FormatoXLS extends XLSPadrao {
 
 }
 
+@Slf4j
+@SuppressWarnings("unchecked")
 class FormatoPDF extends PDFPadrao {
 
     private List<ClienteDTO> clientes;
 
     private HttpServletResponse response;
 
-    public FormatoPDF(List<ClienteDTO> clientes, HttpServletResponse response) {
-        this.clientes = clientes;
+    public FormatoPDF(Object dados, HttpServletResponse response) {
+        this.clientes = (List<ClienteDTO>) dados;
         this.response = response;
         this.motaRelatorio();
     }

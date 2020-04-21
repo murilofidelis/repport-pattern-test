@@ -24,7 +24,7 @@ public class ClienteServiceImpl implements IClienteService {
     }
 
     @Override
-    public Object getDadosImpressao() {
+    public Object getDataExport() {
         return mapper.listDTO(this.getTodos());
     }
 }

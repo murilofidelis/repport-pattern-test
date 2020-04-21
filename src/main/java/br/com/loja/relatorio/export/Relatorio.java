@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import javax.servlet.http.HttpServletResponse;
 
 @Slf4j
+@SuppressWarnings("unchecked")
 public class Relatorio {
 
     private Formato formato;
@@ -37,18 +38,16 @@ public class Relatorio {
 
     private void montaRelatorio() {
         Object dados = this.getDadosRelatorio();
-        IRelatorioExport relatorioExport = this.tipo.createInstance();
-        relatorioExport.exporta(dados, this.formato, this.response);
+        IRelatorioExport export = this.tipo.createInstance();
+        export.exporta(dados, this.formato, this.response);
     }
 
-    @SuppressWarnings("unchecked")
     private Object getDadosRelatorio() {
         IRelatorioExportData service = AppContext.getInstance().getContext()
                 .getBean((Class<IRelatorioExportData>) getClassProvide());
-        return service.getDadosImpressao();
+        return service.getDataExport();
     }
 
-    @SuppressWarnings("unchecked")
     private <T> T getClassProvide() {
         return (T) tipo.getService();
     }
