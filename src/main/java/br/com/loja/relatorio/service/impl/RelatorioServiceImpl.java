@@ -13,11 +13,10 @@ public class RelatorioServiceImpl implements IRelatorioService {
 
     public void exporta(TipoRelatorio tipo, Formato formato, HttpServletResponse response) {
 
-        new Relatorio()
+         Relatorio.builder()
                 .doTipo(tipo)
                 .noFormato(formato)
                 .comResposta(response)
-                .exporta();
-
+                .build();
     }
 }

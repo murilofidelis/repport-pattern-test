@@ -17,6 +17,10 @@ public class Relatorio {
 
     private HttpServletResponse response;
 
+    public static Relatorio builder() {
+        return new Relatorio();
+    }
+
     public Relatorio comResposta(HttpServletResponse response) {
         this.response = response;
         return this;
@@ -32,7 +36,7 @@ public class Relatorio {
         return this;
     }
 
-    public void exporta() {
+    public void build() {
         this.montaRelatorio();
     }
 

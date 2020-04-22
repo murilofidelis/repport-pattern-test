@@ -9,4 +9,8 @@ public class ImpressaoExeption extends RuntimeException {
     public ImpressaoExeption(String message) {
         super(message);
     }
+
+    public ImpressaoExeption(String message, Throwable cause) {
+        super(message, cause);
+    }
 }

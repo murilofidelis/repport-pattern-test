@@ -8,4 +8,5 @@ public interface IRelatorioExport {
 
     void exporta(Object dados, Formato formato, HttpServletResponse response);
 
+
 }

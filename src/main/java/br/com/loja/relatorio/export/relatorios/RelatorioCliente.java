@@ -9,27 +9,32 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.util.FileCopyUtils;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 
 @Slf4j
 public class RelatorioCliente implements IRelatorioExport {
 
     @Override
-
     public void exporta(Object dados, Formato formato, HttpServletResponse response) {
         log.info("EXPORTANDO RelatorioCliente FORMARTO: {}", formato);
-        if (formato.equals(Formato.XLS)) {
-            new FormatoXLS(dados, response);
-        } else if (formato.equals(Formato.PDF)) {
-            new FormatoPDF(dados, response);
-        } else {
-            throw new ImpressaoExeption("Formato não disponível para tipo de ralatório.");
+        switch (formato) {
+            case XLS:
+                new FormatoXLS(dados, response);
+                break;
+            case PDF:
+                new FormatoPDF(dados, response);
+                break;
+            default:
+                throw new ImpressaoExeption("Formato não disponível para tipo de ralatório.");
         }
     }
+
 }
 
 @Slf4j
@@ -81,6 +86,10 @@ class FormatoXLS extends XLSPadrao {
 @SuppressWarnings("unchecked")
 class FormatoPDF extends PDFPadrao {
 
+    private static final String NOME_ARQUIVO = "clientes.pdf";
+
+    private static final String TEMPLATE = "/templates/cliente.html";
+
     private List<ClienteDTO> clientes;
 
     private HttpServletResponse response;
@@ -92,6 +101,18 @@ class FormatoPDF extends PDFPadrao {
     }
 
     private void motaRelatorio() {
-
+        try {
+            HashMap<String, String> valores = new HashMap<>();
+            valores.put("${titulo}", "Relatório de Clientes");
+            String html = getHTML(TEMPLATE);
+            byte[] bytesPdf = getBytesPdf(valores, html);
+            setHeaderResponde(response, NOME_ARQUIVO);
+            FileCopyUtils.copy(bytesPdf, response.getOutputStream());
+        } catch (IOException | RuntimeException e) {
+            log.error("Erro: ", e);
+            throw new ImpressaoExeption("Erro ao gerar PDF");
+        }
     }
+
+
 }
