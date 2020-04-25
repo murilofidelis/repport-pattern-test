@@ -104,8 +104,7 @@ class FormatoPDF extends PDFPadrao {
         try {
             HashMap<String, String> valores = new HashMap<>();
             valores.put("${titulo}", "Relatório de Clientes");
-            String html = getHTML(TEMPLATE);
-            byte[] bytesPdf = getBytesPdf(valores, html);
+            byte[] bytesPdf = getBytesPdf(valores, TEMPLATE);
             setHeaderResponde(response, NOME_ARQUIVO);
             FileCopyUtils.copy(bytesPdf, response.getOutputStream());
         } catch (IOException | RuntimeException e) {

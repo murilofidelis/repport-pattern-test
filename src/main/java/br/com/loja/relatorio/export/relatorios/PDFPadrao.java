@@ -23,7 +23,7 @@ import java.util.Scanner;
 
 public abstract class PDFPadrao {
 
-    protected String getHTML(String path) {
+    private String getHTML(String path) {
 
         InputStream resourceAsStream = Matchers.class.getResourceAsStream(path);
 
@@ -34,8 +34,10 @@ public abstract class PDFPadrao {
         }
     }
 
-    protected byte[] getBytesPdf(HashMap<String, String> valores, String html) {
+    protected byte[] getBytesPdf(HashMap<String, String> valores, String path) {
         try {
+
+            String html = this.getHTML(path);
 
             html = substituirValoresParametrizados(html, valores);
 
